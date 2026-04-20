@@ -7,45 +7,86 @@ export default async function CreateEmployeePage() {
 
   return (
     <div>
-      <h1>Create Employee</h1>
+      {/* HEADER */}
+      <h1 className="font-bold mx-170">Create Employee</h1>
 
-      <form
-        action={createEmployee}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          width: 300,
-        }}
-      >
-        {/* Name */}
-        <input name="name" placeholder="Name" required />
+      {/* FORM CARD */}
+      <div>
+        <form
+          action={createEmployee}
+          className="bg-zinc-900 p-6 border border-zinc-800 max-w-md flex flex-col mx-130 my-10"
+        >
+          {/* Name */}
+          <input
+            name="name"
+            placeholder="Name"
+            required
+            className="p-3 m-3
+                      text-sm
+                      rounded-md
+                    bg-zinc-800
+                      border border-zinc-700 space-y-4"
+          />
 
-        {/* Email */}
-        <input name="email" placeholder="Email" required />
+          {/* Email */}
+          <input
+            name="email"
+            placeholder="Email"
+            required
+            className="p-3
+                       m-3
+                      text-sm
+                      rounded-md
+                    bg-zinc-800
+                      border border-zinc-700 space-y-4"
+          />
 
-        {/* Department Dropdown */}
-        <select name="departmentId" required>
-          <option value="">Select Department</option>
-          {departments.map((d) => (
-            <option key={d.id} value={d.id}>
-              {d.name}
-            </option>
-          ))}
-        </select>
+          {/* Department Dropdown */}
+          <select
+            name="departmentId"
+            required
+            className="p-3 m-3
+                      text-sm
+                      rounded-md
+                    bg-zinc-800
+                      border border-zinc-700 space-y-4"
+          >
+            <option value="">Select Department</option>
+            {departments.map((d) => (
+              <option key={d.id} value={d.id}>
+                {d.name}
+              </option>
+            ))}
+          </select>
 
-        {/* Designation Dropdown */}
-        <select name="designationId" required>
-          <option value="">Select Designation</option>
-          {designations.map((d) => (
-            <option key={d.id} value={d.id}>
-              {d.title}
-            </option>
-          ))}
-        </select>
+          {/* Designation Dropdown */}
+          <select
+            name="designationId"
+            required
+            className="p-3 m-3
+                      text-sm
+                      rounded-md
+                    bg-zinc-800
+                      border border-zinc-700 space-y-4"
+          >
+            <option value="">Select Designation</option>
+            {designations.map((d) => (
+              <option key={d.id} value={d.id}>
+                {d.title}
+              </option>
+            ))}
+          </select>
 
-        <button type="submit">Create</button>
-      </form>
+          {/* BUTTON */}
+          <button
+            type="submit"
+            className="bg-lime-400 hover:bg-lime-600 text-white
+                      border border-zinc-700 px-0.5 py-4 m-14 rounded"
+          >
+            Create Employee
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

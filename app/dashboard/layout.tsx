@@ -1,40 +1,26 @@
-import Link from "next/link";
+import Sidebar from "./sidebar";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
-      {/* Sidebar */}
-      <aside
-        style={{
-          width: "250px",
-          padding: "20px",
-          background: "#111",
-          color: "#fff",
-        }}
-      >
-        <h2>EMS System</h2>
+    <div className="min-h-screen flex bg-black text-white">
+      <Sidebar />
 
-        <nav
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
-            marginTop: "20px",
-          }}
-        >
-          <Link href="/dashboard">Dashboard</Link>
-          <Link href="/dashboard/employees">Employees</Link>
-          <Link href="/dashboard/departments">Departments</Link>
-          <Link href="/dashboard/designations">Designations</Link>
-        </nav>
-      </aside>
+      <div className="flex-1 flex flex-col">
+        {/* Topbar */}
+        <header className="h-14 border-b border-gray-800 flex items-center justify-between px-6">
+          <h1 className="text-lime-400 font-semibold">
+            Employee Management System
+          </h1>
 
-      {/* Main content */}
-      <main style={{ flex: 1, padding: "20px" }}>{children}</main>
+          <div className="text-sm text-gray-400">Admin Panel</div>
+        </header>
+
+        <main className="p-6 flex-1">{children}</main>
+      </div>
     </div>
   );
 }

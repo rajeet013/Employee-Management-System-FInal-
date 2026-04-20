@@ -16,51 +16,97 @@ export default async function EditEmployeePage({
   const designations = await prisma.designation.findMany();
 
   if (!employee) {
-    return <p>Employee not found</p>;
+    return (
+      <div>
+        <p>Employee not found</p>
+      </div>
+    );
   }
 
   return (
     <div>
-      <h1>Edit Employee</h1>
+      {/* HEADER */}
+      <h1 className="font-bold mx-170">Edit Employee</h1>
 
-      <form
-        action={async (formData) => {
-          "use server";
-          await updateEmployee(id, formData);
-        }}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          width: 300,
-        }}
-      >
-        {/* Name */}
-        <input name="name" defaultValue={employee.name} placeholder="Name" />
+      {/* FORM CARD */}
+      <div>
+        <form
+          action={async (formData) => {
+            "use server";
+            await updateEmployee(id, formData);
+          }}
+          className="bg-zinc-900 p-6 border border-zinc-800 max-w-md flex flex-col mx-130 my-10"
+        >
+          {/* Name */}
+          <input
+            name="name"
+            defaultValue={employee.name}
+            placeholder="Name"
+            required
+            className="p-3 m-3
+                      text-sm
+                      rounded-md
+                    bg-zinc-800
+                      border border-zinc-700 space-y-4"
+          />
 
-        {/* Email */}
-        <input name="email" defaultValue={employee.email} placeholder="Email" />
+          {/* Email */}
+          <input
+            name="email"
+            defaultValue={employee.email}
+            placeholder="Email"
+            required
+            className="p-3 m-3
+                      text-sm
+                      rounded-md
+                    bg-zinc-800
+                      border border-zinc-700 space-y-4"
+          />
 
-        {/* Department */}
-        <select name="departmentId" defaultValue={employee.departmentId}>
-          {departments.map((d) => (
-            <option key={d.id} value={d.id}>
-              {d.name}
-            </option>
-          ))}
-        </select>
+          {/* Department */}
+          <select
+            name="departmentId"
+            defaultValue={employee.departmentId}
+            className="p-3 m-3
+                      text-sm
+                      rounded-md
+                    bg-zinc-800
+                      border border-zinc-700 space-y-4"
+          >
+            {departments.map((d) => (
+              <option key={d.id} value={d.id}>
+                {d.name}
+              </option>
+            ))}
+          </select>
 
-        {/* Designation */}
-        <select name="designationId" defaultValue={employee.designationId}>
-          {designations.map((d) => (
-            <option key={d.id} value={d.id}>
-              {d.title}
-            </option>
-          ))}
-        </select>
+          {/* Designation */}
+          <select
+            name="designationId"
+            defaultValue={employee.designationId}
+            className="p-3 m-3
+                      text-sm
+                      rounded-md
+                    bg-zinc-800
+                      border border-zinc-700 space-y-4"
+          >
+            {designations.map((d) => (
+              <option key={d.id} value={d.id}>
+                {d.title}
+              </option>
+            ))}
+          </select>
 
-        <button type="submit">Update</button>
-      </form>
+          {/* BUTTON */}
+          <button
+            type="submit"
+            className="bg-lime-400 hover:bg-lime-600 text-white
+                      border border-zinc-700 px-0.5 py-4 m-14 rounded"
+          >
+            Update Employee
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
