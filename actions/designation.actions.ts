@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { redirect } from "next/navigation";
 
 export async function createDesignation(formData: FormData) {
   await prisma.designation.create({
@@ -8,6 +9,8 @@ export async function createDesignation(formData: FormData) {
       title: formData.get("title") as string,
     },
   });
+
+  redirect("/dashboard/designations");
 }
 
 export async function updateDesignation(id: string, formData: FormData) {
@@ -17,6 +20,8 @@ export async function updateDesignation(id: string, formData: FormData) {
       title: formData.get("title") as string,
     },
   });
+
+  redirect("/dashboard/designations");
 }
 
 export async function deleteDesignation(id: string) {

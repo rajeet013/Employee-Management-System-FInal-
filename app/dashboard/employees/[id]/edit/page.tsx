@@ -47,7 +47,7 @@ export default async function EditEmployeePage({
                       text-sm
                       rounded-md
                     bg-zinc-800
-                      border border-zinc-700 space-y-4"
+                      focus:border-0 focus:outline-none border-zinc-700 space-y-4"
           />
 
           {/* Email */}
@@ -60,7 +60,7 @@ export default async function EditEmployeePage({
                       text-sm
                       rounded-md
                     bg-zinc-800
-                      border border-zinc-700 space-y-4"
+                      focus:border-0 focus:outline-none border-zinc-700 space-y-4"
           />
 
           {/* Department */}
@@ -71,7 +71,7 @@ export default async function EditEmployeePage({
                       text-sm
                       rounded-md
                     bg-zinc-800
-                      border border-zinc-700 space-y-4"
+                      focus:border-0 focus:outline-none border-zinc-700 space-y-4"
           >
             {departments.map((d) => (
               <option key={d.id} value={d.id}>
@@ -88,7 +88,7 @@ export default async function EditEmployeePage({
                       text-sm
                       rounded-md
                     bg-zinc-800
-                      border border-zinc-700 space-y-4"
+                      focus:border-0 focus:outline-none border-zinc-700 space-y-4"
           >
             {designations.map((d) => (
               <option key={d.id} value={d.id}>

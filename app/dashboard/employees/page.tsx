@@ -34,66 +34,75 @@ export default async function EmployeesPage({ searchParams }: any) {
   const totalPages = Math.ceil(total / limit);
 
   return (
-    <div style={styles.page}>
+    <div>
       {/* HEADER CARD */}
-      <div style={styles.headerCard}>
+      <div className="flex items-center justify-between">
         <div>
-          <h1 style={styles.title}>Employees</h1>
-          <p style={styles.subtitle}>Manage all employee records</p>
+          <h1 className="font-bold text-lime-500 text-2xl my-2">Employees</h1>
+          <p>Manage all employee records</p>
         </div>
-
-        <Link href="/dashboard/employees/create" style={styles.addBtn}>
+        <div>
+          <Link href="/dashboard/employees/create" className="bg-lime-500 hover:bg-lime-700 text-white text-bold
+                      border border-zinc-700 px-4 py-4 rounded">
           + Add Employee
-        </Link>
+        </Link> 
+        </div>
       </div>
 
       {/* SEARCH CARD */}
-      <div style={styles.card}>
-        <form method="GET" style={styles.searchBox}>
+      <div>
+        <form method="GET">
           <input
             name="search"
             defaultValue={search}
             placeholder="Search employees by name or email..."
-            style={styles.searchInput}
+            className="p-3
+                       my-3
+                      text-sm
+                      rounded-md
+                    bg-zinc-800
+                      border border-gray-400"
           />
-          <button style={styles.searchBtn}>Search</button>
+          <button className="bg-lime-400 hover:bg-lime-600 text-white
+                      border border-gray-400 px-3 py-3 m-3 rounded">Search</button>
         </form>
       </div>
 
       {/* TABLE CARD */}
-      <div style={styles.card}>
-        <table style={styles.table}>
+      <div>
+        <table className="bg-gray-600 border-collapse sm:border-separate border border-gray-400 table-auto border-spacing-3 rounded-3xl">
           <thead>
             <tr>
-              <th style={styles.th}>Name</th>
-              <th style={styles.th}>Email</th>
-              <th style={styles.th}>Department</th>
-              <th style={styles.th}>Designation</th>
-              <th style={styles.th}>Actions</th>
+              <th className="border-white text-lime-500">Name</th>
+              <th className="border-white text-lime-500">Email</th>
+              <th className="border-white text-lime-500">Department</th>
+              <th className="border-white text-lime-500">Designation</th>
+              <th className="border-white text-lime-500">Actions</th>
             </tr>
           </thead>
 
           <tbody>
             {employees.map((emp) => (
-              <tr key={emp.id} style={styles.row}>
-                <td style={styles.td}>{emp.name}</td>
-                <td style={styles.td}>{emp.email}</td>
-                <td style={styles.td}>
-                  <span style={styles.badge}>
+              <tr key={emp.id}>
+                <td className="border-white text-lime-500">{emp.name}</td>
+                <td className="border-white text-lime-500">{emp.email}</td>
+                <td className="border-white text-lime-500">
+                  <span>
                     {emp.department?.name || "N/A"}
                   </span>
                 </td>
-                <td style={styles.td}>
-                  <span style={styles.badgeAlt}>
+                <td className="border-white text-lime-500">
+                  <span>
                     {emp.designation?.title || "N/A"}
                   </span>
                 </td>
 
-                <td style={styles.td}>
-                  <div style={styles.actions}>
+                <td className="border-white text-lime-500">
+                  <div className="flex flex-2 space-x-2">
                     <Link
                       href={`/dashboard/employees/${emp.id}/edit`}
-                      style={styles.editBtn}
+                      className="bg-red-600 hover:bg-red-700 text-white
+                      border border-zinc-700 px-4 py-2 rounded"
                     >
                       Edit
                     </Link>
@@ -104,7 +113,8 @@ export default async function EmployeesPage({ searchParams }: any) {
                         await deleteEmployee(emp.id);
                       }}
                     >
-                      <button style={styles.deleteBtn}>Delete</button>
+                      <button className="bg-sky-600 hover:bg-sky-700 text-white
+                      border border-zinc-700 px-2 py-2 rounded">Delete</button>
                     </form>
                   </div>
                 </td>
@@ -114,12 +124,11 @@ export default async function EmployeesPage({ searchParams }: any) {
         </table>
 
         {/* PAGINATION */}
-        <div style={styles.pagination}>
+        <div>
           {Array.from({ length: totalPages }).map((_, i) => (
             <Link
               key={i}
               href={`?page=${i + 1}${search ? `&search=${search}` : ""}`}
-              style={styles.pageBtn}
             >
               {i + 1}
             </Link>
@@ -129,152 +138,3 @@ export default async function EmployeesPage({ searchParams }: any) {
     </div>
   );
 }
-
-const styles = {
-  page: {
-    background: "#0a0a0a",
-    minHeight: "100vh",
-    padding: "24px",
-    color: "white",
-    fontFamily: "Arial",
-  },
-
-  headerCard: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "18px",
-    border: "1px solid #1f1f1f",
-    borderRadius: "12px",
-    background: "#0f0f0f",
-    marginBottom: "16px",
-  },
-
-  title: {
-    fontSize: "28px",
-    color: "#a3e635",
-    fontWeight: "bold",
-  },
-
-  subtitle: {
-    color: "#777",
-    fontSize: "13px",
-    marginTop: "4px",
-  },
-
-  card: {
-    background: "#0f0f0f",
-    border: "1px solid #1f1f1f",
-    borderRadius: "12px",
-    padding: "16px",
-    marginBottom: "16px",
-  },
-
-  addBtn: {
-    background: "#a3e635",
-    color: "#000",
-    padding: "10px 14px",
-    borderRadius: "8px",
-    textDecoration: "none",
-    fontWeight: "bold",
-  },
-
-  searchBox: {
-    display: "flex",
-    gap: "10px",
-  },
-
-  searchInput: {
-    flex: 1,
-    padding: "10px",
-    background: "#111",
-    border: "1px solid #333",
-    color: "white",
-    borderRadius: "8px",
-  },
-
-  searchBtn: {
-    background: "#a3e635",
-    border: "none",
-    padding: "10px 14px",
-    borderRadius: "8px",
-    cursor: "pointer",
-    fontWeight: "bold",
-    color: "black",
-  },
-
-  table: {
-    width: "100%",
-    borderCollapse: "collapse",
-  },
-
-  th: {
-    textAlign: "left",
-    padding: "12px",
-    borderBottom: "1px solid #222",
-    color: "#a3e635",
-  },
-
-  td: {
-    padding: "12px",
-    borderBottom: "1px solid #1f1f1f",
-  },
-
-  row: {
-    transition: "0.2s",
-  },
-
-  badge: {
-    background: "#14532d",
-    color: "#a3e635",
-    padding: "4px 8px",
-    borderRadius: "20px",
-    fontSize: "18px",
-  },
-
-  badgeAlt: {
-    background: "#1e293b",
-    color: "#93c5fd",
-    padding: "4px 8px",
-    borderRadius: "20px",
-    fontSize: "18px",
-  },
-
-  actions: {
-    display: "flex",
-    gap: "10px",
-    alignItems: "center",
-  },
-
-  editBtn: {
-    background: "#334155",
-    color: "white",
-    padding: "6px 10px",
-    borderRadius: "6px",
-    textDecoration: "none",
-  },
-
-  deleteBtn: {
-    background: "#7f1d1d",
-    color: "white",
-    border: "none",
-    padding: "6px 10px",
-    borderRadius: "6px",
-    cursor: "pointer",
-  },
-
-  pagination: {
-    marginTop: "12px",
-    display: "flex",
-    gap: "8px",
-  },
-
-  pageBtn: {
-    padding: "6px 10px",
-    background: "#111",
-    border: "1px solid #333",
-    color: "white",
-    borderRadius: "6px",
-    textDecoration: "none",
-  },
-};

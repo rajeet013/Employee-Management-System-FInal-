@@ -13,38 +13,39 @@ export default async function DepartmentsPage() {
   });
 
   return (
-    <div style={styles.page}>
+    <div>
       {/* HEADER */}
-      <div style={styles.header}>
-        <h1 style={styles.title}>Departments</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="font-bold text-lime-500 text-2xl my-2">Departments</h1>
 
-        <Link href="/dashboard/departments/create" style={styles.addBtn}>
+        <Link href="/dashboard/departments/create" className="bg-lime-500 hover:bg-lime-700 text-white text-bold
+                      border border-zinc-700 px-4 py-4 rounded">
           + Add Department
         </Link>
       </div>
 
       {/* TABLE */}
-      <div style={styles.tableWrapper}>
-        <table style={styles.table}>
+      <div>
+        <table className="bg-gray-600 border-collapse sm:border-separate border border-gray-400 table-auto border-spacing-3 rounded-3xl">
           <thead>
-            <tr style={styles.theadRow}>
-              <th style={styles.th}>Department Name</th>
-              <th style={styles.th}>Actions</th>
+            <tr>
+              <th className="border-white text-lime-500">Department Name</th>
+              <th className="border-white text-lime-500">Actions</th>
             </tr>
           </thead>
 
           <tbody>
             {departments.map((dept) => (
-              <tr key={dept.id} style={styles.row}>
-                <td style={styles.td}>
-                  <span style={styles.badge}>{dept.name}</span>
+              <tr key={dept.id}>
+                <td className="border-white text-lime-500">
+                  <span>{dept.name}</span>
                 </td>
 
-                <td style={styles.td}>
-                  <div style={styles.actions}>
+                <td>
+                  <div className="border-white text-lime-500 flex flex-2 space-x-2">
                     <Link
-                      href={`/dashboard/departments/${dept.id}/edit`}
-                      style={styles.editBtn}
+                      href={`/dashboard/departments/${dept.id}/edit`} className="bg-red-600 hover:bg-red-700 text-white
+                      border border-zinc-700 px-4 py-2 rounded"
                     >
                       Edit
                     </Link>
@@ -55,7 +56,8 @@ export default async function DepartmentsPage() {
                         await deleteDepartment(dept.id);
                       }}
                     >
-                      <button style={styles.deleteBtn}>Delete</button>
+                      <button className="bg-sky-600 hover:bg-sky-700 text-white
+                      border border-zinc-700 px-2 py-2 rounded">Delete</button>
                     </form>
                   </div>
                 </td>
@@ -67,97 +69,3 @@ export default async function DepartmentsPage() {
     </div>
   );
 }
-
-const styles = {
-  page: {
-    background: "#0a0a0a",
-    minHeight: "100vh",
-    padding: "30px",
-    color: "white",
-    fontFamily: "Arial, sans-serif",
-  },
-
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: "20px",
-  },
-
-  title: {
-    fontSize: "28px",
-    color: "#a3e635",
-    fontWeight: "bold",
-  },
-
-  addBtn: {
-    background: "#a3e635",
-    color: "#000",
-    padding: "10px 15px",
-    borderRadius: "8px",
-    fontWeight: "bold",
-    textDecoration: "none",
-  },
-
-  tableWrapper: {
-    overflowX: "auto",
-  },
-
-  table: {
-    width: "100%",
-    borderCollapse: "collapse",
-    background: "#111",
-    borderRadius: "10px",
-    overflow: "hidden",
-  },
-
-  theadRow: {
-    background: "#1a1a1a",
-  },
-
-  th: {
-    textAlign: "left",
-    padding: "12px",
-    color: "#a3e635",
-    borderBottom: "1px solid #333",
-  },
-
-  row: {
-    borderBottom: "1px solid #222",
-  },
-
-  td: {
-    padding: "12px",
-  },
-
-  badge: {
-    background: "#14532d",
-    padding: "6px 10px",
-    borderRadius: "20px",
-    display: "inline-block",
-    color: "#a3e635",
-  },
-
-  actions: {
-    display: "flex",
-    gap: "10px",
-    alignItems: "center",
-  },
-
-  editBtn: {
-    background: "#334155",
-    color: "white",
-    padding: "6px 10px",
-    borderRadius: "6px",
-    textDecoration: "none",
-  },
-
-  deleteBtn: {
-    background: "#7f1d1d",
-    color: "white",
-    border: "none",
-    padding: "6px 10px",
-    borderRadius: "6px",
-    cursor: "pointer",
-  },
-};
