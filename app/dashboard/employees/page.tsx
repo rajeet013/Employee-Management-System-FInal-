@@ -1,20 +1,31 @@
 import { deleteEmployee } from "@/actions/employee.actions";
 import { prisma } from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-export default async function EmployeesPage({ searchParams }: any) {
-  const search = (searchParams?.search ?? "").trim();
-  const page = Number(searchParams?.page ?? 1);
+interface SearchParams {
+  search?: string;
+  page?: string;
+}
+
+export default async function EmployeesPage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
+  const { search: rawSearch, page: rawPage } = await searchParams; // ✅ awaited
+  const search = (rawSearch ?? "").trim();
+  const page = Number(rawPage ?? 1);
   const limit = 5;
 
-  const where =
+  const where: Prisma.EmployeeWhereInput | undefined =
     search.length > 0
       ? {
           OR: [
-            { name: { contains: search, mode: "insensitive" } },
-            { email: { contains: search, mode: "insensitive" } },
+            { name: { contains: search, mode: Prisma.QueryMode.insensitive } },
+            { email: { contains: search, mode: Prisma.QueryMode.insensitive } },
           ],
         }
       : undefined;
@@ -34,7 +45,7 @@ export default async function EmployeesPage({ searchParams }: any) {
   const totalPages = Math.ceil(total / limit);
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center">
       {/* HEADER CARD */}
       <div className="flex items-center justify-between">
         <div>
@@ -42,10 +53,13 @@ export default async function EmployeesPage({ searchParams }: any) {
           <p>Manage all employee records</p>
         </div>
         <div>
-          <Link href="/dashboard/employees/create" className="bg-lime-500 hover:bg-lime-700 text-white text-bold
-                      border border-zinc-700 px-4 py-4 rounded">
-          + Add Employee
-        </Link> 
+          <Link
+            href="/dashboard/employees/create"
+            className="bg-lime-500 hover:bg-lime-700 text-white text-bold
+                      border border-zinc-700 px-4 py-4 rounded"
+          >
+            + Add Employee
+          </Link>
         </div>
       </div>
 
@@ -63,8 +77,12 @@ export default async function EmployeesPage({ searchParams }: any) {
                     bg-zinc-800
                       border border-gray-400"
           />
-          <button className="bg-lime-400 hover:bg-lime-600 text-white
-                      border border-gray-400 px-3 py-3 m-3 rounded">Search</button>
+          <button
+            className="bg-lime-400 hover:bg-lime-600 text-white
+                      border border-gray-400 px-3 py-3 m-3 rounded"
+          >
+            Search
+          </button>
         </form>
       </div>
 
@@ -87,14 +105,10 @@ export default async function EmployeesPage({ searchParams }: any) {
                 <td className="border-white text-lime-500">{emp.name}</td>
                 <td className="border-white text-lime-500">{emp.email}</td>
                 <td className="border-white text-lime-500">
-                  <span>
-                    {emp.department?.name || "N/A"}
-                  </span>
+                  <span>{emp.department?.name || "N/A"}</span>
                 </td>
                 <td className="border-white text-lime-500">
-                  <span>
-                    {emp.designation?.title || "N/A"}
-                  </span>
+                  <span>{emp.designation?.title || "N/A"}</span>
                 </td>
 
                 <td className="border-white text-lime-500">
@@ -113,8 +127,12 @@ export default async function EmployeesPage({ searchParams }: any) {
                         await deleteEmployee(emp.id);
                       }}
                     >
-                      <button className="bg-sky-600 hover:bg-sky-700 text-white
-                      border border-zinc-700 px-2 py-2 rounded">Delete</button>
+                      <button
+                        className="bg-sky-600 hover:bg-sky-700 text-white
+                      border border-zinc-700 px-2 py-2 rounded"
+                      >
+                        Delete
+                      </button>
                     </form>
                   </div>
                 </td>

@@ -13,13 +13,16 @@ export default async function DepartmentsPage() {
   });
 
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center">
       {/* HEADER */}
       <div className="flex items-center justify-between">
         <h1 className="font-bold text-lime-500 text-2xl my-2">Departments</h1>
 
-        <Link href="/dashboard/departments/create" className="bg-lime-500 hover:bg-lime-700 text-white text-bold
-                      border border-zinc-700 px-4 py-4 rounded">
+        <Link
+          href="/dashboard/departments/create"
+          className="bg-lime-500 hover:bg-lime-700 text-white text-bold
+                      border border-zinc-700 px-4 py-4 rounded"
+        >
           + Add Department
         </Link>
       </div>
@@ -44,7 +47,8 @@ export default async function DepartmentsPage() {
                 <td>
                   <div className="border-white text-lime-500 flex flex-2 space-x-2">
                     <Link
-                      href={`/dashboard/departments/${dept.id}/edit`} className="bg-red-600 hover:bg-red-700 text-white
+                      href={`/dashboard/departments/${dept.id}/edit`}
+                      className="bg-red-600 hover:bg-red-700 text-white
                       border border-zinc-700 px-4 py-2 rounded"
                     >
                       Edit
@@ -56,8 +60,12 @@ export default async function DepartmentsPage() {
                         await deleteDepartment(dept.id);
                       }}
                     >
-                      <button className="bg-sky-600 hover:bg-sky-700 text-white
-                      border border-zinc-700 px-2 py-2 rounded">Delete</button>
+                      <button
+                        className="bg-sky-600 hover:bg-sky-700 text-white
+                      border border-zinc-700 px-2 py-2 rounded"
+                      >
+                        Delete
+                      </button>
                     </form>
                   </div>
                 </td>

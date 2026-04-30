@@ -1,7 +1,5 @@
 "use server";
 
-"use server";
-
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
@@ -15,12 +13,11 @@ export async function createEmployee(formData: FormData) {
     },
   });
 
-  // optional but recommended
   redirect("/dashboard/employees");
 }
 
 export async function deleteEmployee(id: string) {
-  return prisma.employee.delete({
+  await prisma.employee.delete({
     where: { id },
   });
 
@@ -28,7 +25,7 @@ export async function deleteEmployee(id: string) {
 }
 
 export async function updateEmployee(id: string, formData: FormData) {
-  return prisma.employee.update({
+  await prisma.employee.update({
     where: { id },
     data: {
       name: formData.get("name") as string,
